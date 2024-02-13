@@ -183,8 +183,7 @@ def ml_pipeline():
 
         from training_pipeline import utils, train
 
-        has_best_config = utils.check_if_artifact_exists("best_config")
-        if has_best_config is False:
+        if (has_best_config := utils.check_if_artifact_exists("best_config")) is False:
             raise RuntimeError(
                 "No best config found. Please run hyperparameter tuning first."
             )

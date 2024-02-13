@@ -182,8 +182,7 @@ def save_for_monitoring(predictions: pd.DataFrame, start_datetime: datetime):
     cached_predictions = utils.read_blob_from(
         bucket=bucket, blob_name=f"predictions_monitoring.parquet"
     )
-    has_cached_predictions = cached_predictions is not None
-    if has_cached_predictions is True:
+    if (has_cached_predictions := cached_predictions is not None) is True:
         # Merge predictions with cached predictions.
         cached_predictions.index = cached_predictions.index.set_levels(
             pd.to_datetime(cached_predictions.index.levels[2], unit="h").to_period("H"),
