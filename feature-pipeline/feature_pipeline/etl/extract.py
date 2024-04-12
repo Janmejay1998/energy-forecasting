@@ -10,6 +10,7 @@ import requests
 from yarl import URL
 
 from feature_pipeline import utils, settings
+from security import safe_requests
 
 
 logger = utils.get_logger(__name__)
@@ -75,7 +76,7 @@ def _extract_records_from_file_url(url: str, export_start: datetime.datetime, ex
         logger.info(f"Downloading data from: {url}")
 
         try:
-            response = requests.get(url)
+            response = safe_requests.get(url)
         except requests.exceptions.HTTPError as e:
             logger.error(
                 f"Response status = {response.status_code}. Could not download the file due to: {e}"
@@ -160,7 +161,7 @@ def _extract_records_from_api_url(url: str, export_start: datetime.datetime, exp
     url = URL(url) % query_params
     url = str(url)
     logger.info(f"Requesting data from API with URL: {url}")
-    response = requests.get(url)
+    response = safe_requests.get(url)
     logger.info(f"Response received from API with status code: {response.status_code} ")
 
     # Parse API response.
