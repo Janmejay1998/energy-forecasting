@@ -16,7 +16,7 @@ st.divider()
 
 
 # Create dropdown for area selection.
-area_response = requests.get(API_URL / "area_values")
+area_response = requests.get(API_URL / "area_values", timeout=60)
 
 area = st.selectbox(
     label="Denmark is divided in two price areas, or bidding zones,\
@@ -26,7 +26,7 @@ area = st.selectbox(
 )
 
 # Create dropdown for consumer type selection.
-consumer_type_response = requests.get(API_URL / "consumer_type_values")
+consumer_type_response = requests.get(API_URL / "consumer_type_values", timeout=60)
 
 consumer_type = st.selectbox(
     label="The consumer type is the Industry Code DE35 which is owned \
