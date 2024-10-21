@@ -1,9 +1,9 @@
-import requests
 
 import streamlit as st
 
 from settings import API_URL, TITLE
 from components import build_data_plot
+from security import safe_requests
 
 
 st.set_page_config(page_title=TITLE)
@@ -11,7 +11,7 @@ st.title(TITLE)
 
 
 # Create dropdown for area selection.
-area_response = requests.get(API_URL / "area_values")
+area_response = safe_requests.get(API_URL / "area_values")
 
 area = st.selectbox(
     label="Denmark is divided in two price areas, or bidding zones,\
@@ -21,7 +21,7 @@ area = st.selectbox(
 )
 
 # Create dropdown for consumer type selection.
-consumer_type_response = requests.get(API_URL / "consumer_type_values")
+consumer_type_response = safe_requests.get(API_URL / "consumer_type_values")
 
 consumer_type = st.selectbox(
     label="The consumer type is the Industry Code DE35 which is owned \

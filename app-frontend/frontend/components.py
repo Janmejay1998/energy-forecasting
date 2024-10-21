@@ -1,10 +1,10 @@
 from typing import List
-import requests
 
 import pandas as pd
 import plotly.graph_objects as go
 
 from settings import API_URL
+from security import safe_requests
 
 
 def build_data_plot(area: int, consumer_type: int):
@@ -13,7 +13,7 @@ def build_data_plot(area: int, consumer_type: int):
     """
 
     # Get predictions from API.
-    response = requests.get(
+    response = safe_requests.get(
         API_URL / "predictions" / f"{area}" / f"{consumer_type}", verify=False
     )
     if response.status_code != 200:
