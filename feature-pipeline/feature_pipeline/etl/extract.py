@@ -75,7 +75,7 @@ def _extract_records_from_file_url(url: str, export_start: datetime.datetime, ex
         logger.info(f"Downloading data from: {url}")
 
         try:
-            response = requests.get(url)
+            response = requests.get(url, timeout=60)
         except requests.exceptions.HTTPError as e:
             logger.error(
                 f"Response status = {response.status_code}. Could not download the file due to: {e}"
@@ -160,7 +160,7 @@ def _extract_records_from_api_url(url: str, export_start: datetime.datetime, exp
     url = URL(url) % query_params
     url = str(url)
     logger.info(f"Requesting data from API with URL: {url}")
-    response = requests.get(url)
+    response = requests.get(url, timeout=60)
     logger.info(f"Response received from API with status code: {response.status_code} ")
 
     # Parse API response.
