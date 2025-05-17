@@ -12,7 +12,7 @@ def build_metrics_plot():
     Build plotly graph for metrics.
     """
 
-    response = requests.get(API_URL / "monitoring" / "metrics", verify=False)
+    response = requests.get(API_URL / "monitoring" / "metrics", verify=False, timeout=60)
     if response.status_code != 200:
         # If the response is invalid, build empty dataframes in the proper format.
         metrics_df = build_dataframe([], [], values_column_name="mape")
@@ -57,8 +57,8 @@ def build_data_plot(area: int, consumer_type: int):
 
     # Get predictions from API.
     response = requests.get(
-        API_URL / "monitoring" / "values" / f"{area}" / f"{consumer_type}", verify=False
-    )
+        API_URL / "monitoring" / "values" / f"{area}" / f"{consumer_type}", verify=False, 
+    timeout=60)
     if response.status_code != 200:
         # If the response is invalid, build empty dataframes in the proper format.
         train_df = build_dataframe([], [])
